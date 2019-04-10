@@ -32,7 +32,8 @@
           </div>
         </div>
         <div class="form-group"><label class="col-sm-2 control-label">DOB</label>
-          <div class="col-sm-10"><input type="text" id="datetimepicker" class="form-control" name="dob" placeholder="Date of Birth"></div>
+          <div class="col-sm-10"><input name="dob" style="width: 100%;border-radius: 5px;border: 1px solid #d1d3e2;
+        " data-toggle="datepicker"></div>
         </div>
         <div class="form-group"><label class="col-sm-2 control-label">Gender</label>
           <div class="col-sm-10"><input type="text"class="form-control" name="gender" placeholder="Gender"></div>
@@ -53,7 +54,8 @@
         </div>
 
         <div class="form-group"><label class="col-sm-2 control-label">Join Date</label>
-          <div class="col-sm-10"><input type="text"class="form-control" name="join_date" placeholder="Join Date"></div>
+          <div class="col-sm-10"><input name="join_date" style="width: 100%;border-radius: 5px;border: 1px solid #d1d3e2;
+            " data-toggle="datepickerjoin"></div>
         </div>
         <div class="hr-line-dashed"></div>
         <div class="form-group">
@@ -72,12 +74,17 @@
     </form>
   </div>
 
-  <link rel="stylesheet" href="/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
   <script src="/jquery.min.js"></script>
-  <script src="/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-  <script>
-    document.querySelectorAll('#datetimepicker')[0].datetimepicker({
-        format: 'yyyy-mm-dd'
-    });
-  </script>
+  <link  href="/datepicker-master/dist/datepicker.css" rel="stylesheet">
+  <script src="/datepicker-master/dist/datepicker.js"></script>
+  {{-- <script>
+      $('[data-toggle="datepicker"]').datepicker({
+        format: 'dd-mm-yyyy',
+        startView: 2,
+      });
+      $('[data-toggle="datepickerjoin"]').datepicker({
+        format: 'dd-mm-yyyy',
+        startView: 2,
+      });
+  </script> --}}
 @endsection

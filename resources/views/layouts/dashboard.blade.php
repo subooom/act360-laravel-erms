@@ -56,7 +56,7 @@
       </div>
 
       <!-- Nav Item - Employees -->
-      <li class="nav-item  {{ Request::segment(2) == 'employees' || 'employee' ? 'active' : ''}}">
+      <li class="nav-item  {{ Request::segment(2) == 'employees'? 'active' : ''}}">
         <a class="nav-link" href="{{ route('employees.browse')}}">
           <i class="fas fa-fw fa-users"></i>
           <span>Employees</span></a>
@@ -211,6 +211,13 @@
   <!-- Custom scripts for all pages-->
   <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
 
+  <!-- Page level plugins -->
+  <script src="/sbadmin2/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="/sbadmin2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <script>$(document).ready(function() {
+      $('#dataTable').DataTable({paging: false,});
+    });</script>
 </body>
 
 </html>

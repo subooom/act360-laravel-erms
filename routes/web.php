@@ -19,6 +19,7 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard/employees/browse', 'EmployeeController@index')->name('employees.browse');
 Route::get('/dashboard/employees/create', 'EmployeeController@create')->name('employees.create');
 Route::post('/dashboard/employee/store', 'EmployeeController@store')->name('employees.store');
+Route::post('/dashboard/employees/search', 'EmployeeController@search')->name('employees.search');
 Route::get('/dashboard/employee/show/{id}', 'EmployeeController@show')->name('employee.show');
 Route::get('/dashboard/employee/edit/{id}', 'EmployeeController@edit')->name('employee.edit');
 Route::delete('/dashboard/employee/destroy/{id}', 'EmployeeController@destroy')->name('employee.destroy');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Employee;
 use App\Model\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -16,6 +17,10 @@ class EmployeeController extends Controller
     public function index()
     {
       $employees = Employee::paginate(5);
+
+      foreach($employees as $emp){
+        $emp->dept = Department::find($emp->dept_id)->first()->title;
+      }
 
       return view('employee.index')->with('employees', $employees);
     }
@@ -133,6 +138,14 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $employee = Employee::find($id);
+
+      if($employee->photo != null){
+          // Delete Image
+          Storage::delete('public/imgs/employees/'.$employee->photo);
+      }
+
+      $employee->delete();
+      return redirect('/dashboard/employees/browse');
     }
 }

@@ -17,23 +17,6 @@
             <div class="table-responsive">
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="dataTables_length" id="dataTable_length"><label>Show <select
-                                        name="dataTable_length" aria-controls="dataTable"
-                                        class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select> entries</label></div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search"
-                                        class="form-control form-control-sm" placeholder=""
-                                        aria-controls="dataTable"></label></div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-12">
                             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
                                 role="grid" aria-describedby="dataTable_info" style="width: 100%;">
@@ -43,6 +26,10 @@
                                             colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending" style="width: 185px;">
                                             Name</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Name: activate to sort column descending" style="width: 185px;">
+                                                Address</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                             colspan="1" aria-label="Age: activate to sort column ascending"
                                             style="width: 60px;">Age</th>
@@ -63,6 +50,7 @@
                                 <tfoot>
                                     <tr>
                                         <th rowspan="1" colspan="1">Name</th>
+                                        <th rowspan="1" colspan="1">Address</th>
                                         <th rowspan="1" colspan="1">Age</th>
                                         <th rowspan="1" colspan="1">Mobile</th>
                                         <th rowspan="1" colspan="1">Employed For</th>
@@ -74,10 +62,12 @@
                                   @foreach($employees as $employee)
                                     <tr role="row" class="odd">
                                         <td class="sorting_1">{{$employee->name}}</td>
-                                        <td>{{$employee->dob}}</td>
+                                        <td class="sorting_1">{{$employee->address}}</td>
+                                        <td>{{$employee->calculateAge($employee->dob)}} years</td>
+
                                         <td>{{$employee->mobile_number}}</td>
-                                        <td>{{$employee->join_date}}</td>
-                                        <td>{{$employee->dept_id}}</td>
+                                        <td>{{$employee->calculateEmployedFor($employee->join_date)}}</td>
+                                        <td>{{$employee->dept}}</td>
                                         <td>
                                             <a href="{{ url('/dashboard/employee/show/'.$employee->id) }}"><i class="btn btn-success btn-sm fa fa-eye"> </i></a>
                                             <a href="{{ url('/dashboard/employee/edit/'.$employee->id) }}"><i class="btn btn-primary btn-sm fa fa-edit"> </i></a>
@@ -95,10 +85,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-5">
-                            <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1
-                                to 10 of 57 entries</div>
-                        </div>
                         <div class="col-sm-12 col-md-7">
                             <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                 {{ $employees->links() }}
