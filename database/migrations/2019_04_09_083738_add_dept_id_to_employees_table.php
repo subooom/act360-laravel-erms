@@ -14,10 +14,7 @@ class AddDeptIdToEmployeesTable extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-          $table->foreign('id')
-          ->references('id')
-          ->on('departments')
-          ->onDelete('cascade');;
+          $table->integer('dept_id');
         });
     }
 
