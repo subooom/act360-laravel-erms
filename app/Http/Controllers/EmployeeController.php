@@ -42,13 +42,12 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function validateForm($request){
       $this->validate($request, [
         'name' => 'bail|required|max:255',
         'dob' => 'required',
         'gender' => 'required',
-        'mobile_number' => 'required',
+        'mobile_number' => 'required|min:10|max:10',
         'address' => 'required|min:3',
         'photo' => 'image|max:1999',
         'current_salary' => 'required',
@@ -56,6 +55,11 @@ class EmployeeController extends Controller
         'remark' =>'required',
         'dept_id' => 'required'
       ]);
+    }
+
+    public function store(Request $request)
+    {
+      $this->validateForm($request);
 
       // Handle File Upload
       if($request->hasFile('photo')){
@@ -114,8 +118,9 @@ class EmployeeController extends Controller
     public function edit($id)
     {
       $employee = Employee::find($id);
+      $departments = Department::all();
 
-      return view('employee.edit')->with('employee', $employee);
+      return view('employee.edit')->with('employee', $employee)->with('departments', $departments);
     }
 
     /**
@@ -127,7 +132,39 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $this->validateForm($request);
+
+      // Handle File Upload
+      if($request->hasFile('photo')){
+        // Get filename with the extension
+        $filenameWithExt = $request->file('photo')->getClientOriginalName();
+        // Get just filename
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        // Get just ext
+        $extension = $request->file('photo')->getClientOriginalExtension();
+        // Filename to store
+        $headerImageNameToStore= $filename.'_'.time().'.'.$extension;
+        // Upload Image
+        $path = $request->file('photo')->storeAs('public/imgs/employees', $headerImageNameToStore);
+    }
+      $employee = Employee::find($id);
+      $employee->name = $request->input('name');
+      $employee->dob = $request->input('dob');
+      $employee->gender = $request->input('gender');
+      $employee->mobile_number = $request->input('mobile_number');
+      $employee->address = $request->input('address');
+      $employee->current_salary = $request->input('current_salary');
+      $employee->join_date = $request->input('join_date');
+      $employee->current_salary = $request->input('current_salary');
+      $employee->about = $request->input('remark');
+      $employee->dept_id = $request->input('dept_id');
+      if($request->hasFile('photo')){
+        if($employee->photo!=null) Storage::delete('public/imgs/employees/'.$employee->photo);
+        $employee->photo = $headerImageNameToStore;
+      }
+      $employee->save();
+
+      return redirect('/dashboard/employees/browse');
     }
 
     /**

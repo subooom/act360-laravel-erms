@@ -35,13 +35,17 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function validateForm($request){
       $this->validate($request, [
         'name' => 'bail|required|max:255',
         'description' => 'required'
       ]);
+    }
 
+
+    public function store(Request $request)
+    {
+      $this->validateForm();
       // Create department
       $department = new Department;
       $department->title = $request->input('name');
@@ -73,9 +77,9 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-      $Department = Department::find($id);
+      $department = Department::find($id);
 
-      return view('department.edit')->with('Department', $Department);
+      return view('department.edit')->with('department', $department);
     }
 
     /**
@@ -87,7 +91,14 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $this->validateForm($request);
+
+      $department = Department::find($id);
+      $department->title = $request->input('name');
+      $department->description = $request->input('description');
+      $department->save();
+
+      return redirect('/dashboard/department/browse');
     }
 
     /**

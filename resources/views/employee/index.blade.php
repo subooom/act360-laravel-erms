@@ -63,7 +63,7 @@
                                     <tr role="row" class="odd">
                                         <td class="sorting_1">{{$employee->name}}</td>
                                         <td class="sorting_1">{{$employee->address}}</td>
-                                        <td>{{$employee->calculateAge($employee->dob)}} years</td>
+                                        <td>{{$employee->calculateAge($employee->dob)}}</td>
 
                                         <td>{{$employee->mobile_number}}</td>
                                         <td>{{$employee->calculateEmployedFor($employee->join_date)}}</td>

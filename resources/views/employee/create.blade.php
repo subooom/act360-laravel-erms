@@ -77,14 +77,16 @@
   <script src="/jquery.min.js"></script>
   <link  href="/datepicker-master/dist/datepicker.css" rel="stylesheet">
   <script src="/datepicker-master/dist/datepicker.js"></script>
-  {{-- <script>
+  <script>
       $('[data-toggle="datepicker"]').datepicker({
-        format: 'dd-mm-yyyy',
+        format: 'dd-m-yyyy',
         startView: 2,
+        autoHide: true
       });
       $('[data-toggle="datepickerjoin"]').datepicker({
-        format: 'dd-mm-yyyy',
+        format: 'dd-m-yyyy',
         startView: 2,
+        autoHide: true
       });
-  </script> --}}
+  </script>
 @endsection
