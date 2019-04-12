@@ -5,6 +5,7 @@ This repository exists merely as a demonstration of the things i can do with lar
 * Create a database named 'act360'
 * Setup `.env` file with the same settings and generate application key.
 * Run `cd/path/to/the/repo`
+* Run `composer install`
 * Run `php artisan migrate && php artisan db:seed && php artisan storage:link`
 * Now you can finally run `php artisan serv`
 * Admin Username: `admin@admin.com`, Password: `secret`
